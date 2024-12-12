@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const productsData = await getCollection('products');
+const products = productsData.map(item => item.data);
+---
+
+<Layout>
+  <main>
+    <h1>Hello World</h1>
+    {products.map(product => <p>{product.name}</p>)}
+  </main>
+</Layout>
+
+<script>
+  fetch("http://localhost:5015/api/v1/Hello")
+    .then(result => result.text())
+    .then(text => console.log(
+      `%c ${text}`, "color:green;",
+      "Looks like the backend is available"))
+    .catch(() => console.error("Backend is either down or unavailable"))
+</script>
